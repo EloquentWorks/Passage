@@ -2,7 +2,7 @@
 
 [![Tests](https://github.com/EloquentWorks/Passage/actions/workflows/tests.yml/badge.svg)](https://github.com/EloquentWorks/Passage/actions/workflows/tests.yml)
 [![Latest Release](https://img.shields.io/github/v/release/EloquentWorks/Passage)](https://github.com/EloquentWorks/Passage/releases)
-[![License](https://img.shields.io/github/license/EloquentWorks/Passage)](LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 A feature-rich onboarding, checklist, journey, progression, and gated-experience engine for Laravel.
 
