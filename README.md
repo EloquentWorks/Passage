@@ -37,12 +37,13 @@ Passage lets applications define multi-step journeys in code, enroll any Eloquen
 - Laravel package auto-discovery
 - PHPUnit, PHPStan/Larastan, Pint, and GitHub Actions
 
-## 📋 Requirements
+## 📋 Supported Versions
 
-| Package | Supported |
-|---|---:|
-| PHP | `^8.2` |
-| Laravel / Illuminate | `^12.0 \|\| ^13.0` |
+| Package version | PHP | Laravel / Illuminate |
+|---|---:|---:|
+| Current | `^8.2` | `^12.0 \|\| ^13.0` |
+
+> Composer automatically resolves compatible Laravel and Illuminate versions for the consuming application.
 
 ## 🚀 Installation
 
