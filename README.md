@@ -256,7 +256,6 @@ composer test
 - [Configuration](docs/configuration.md)
 - [Testing](docs/testing.md)
 - [Security](docs/security.md)
-- [Upgrading](UPGRADING.md)
 
 ## 🔐 Security
 
@@ -267,6 +266,10 @@ Report vulnerabilities privately according to [SECURITY.md](SECURITY.md).
 ## 🤝 Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
+
+## 🙏 Credits
+
+Built by Eloquent Works.
 
 ## 📄 License
 
