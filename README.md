@@ -42,7 +42,7 @@ Passage lets applications define multi-step journeys in code, enroll any Eloquen
 | Package | Supported |
 |---|---:|
 | PHP | `^8.2` |
-| Laravel / Illuminate | `^12.0 || ^13.0` |
+| Laravel / Illuminate | `^12.0 \|\| ^13.0` |
 
 ## 🚀 Installation
 
