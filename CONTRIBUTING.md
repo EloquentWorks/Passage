@@ -277,4 +277,4 @@ A pull request may be declined when the feature is too application-specific, dup
 
 By contributing, you agree that your contribution will be licensed under the repository's [MIT License](LICENSE).
 
-Thank you for helping make Laravel Exile safer, clearer, and more useful. 🛡️
+Thank you for helping make Laravel Passage safer, clearer, and more useful. 🤝
