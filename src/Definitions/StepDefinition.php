@@ -10,15 +10,11 @@ final class StepDefinition
 {
     /**
      * The name of the step.
-     *
-     * @var string
      */
     private string $name;
 
     /**
      * Whether the step is required or optional.
-     *
-     * @var bool
      */
     private bool $required = true;
 
@@ -31,8 +27,6 @@ final class StepDefinition
 
     /**
      * The route name for the step.
-     *
-     * @var string|null
      */
     private ?string $route = null;
 
@@ -45,36 +39,26 @@ final class StepDefinition
 
     /**
      * The URL for the step.
-     *
-     * @var string|null
      */
     private ?string $url = null;
 
     /**
      * The description of the step.
-     *
-     * @var string|null
      */
     private ?string $description = null;
 
     /**
      * The due time for the step in minutes.
-     *
-     * @var int|null
      */
     private ?int $dueAfterMinutes = null;
 
     /**
      * Whether the step allows retrying.
-     *
-     * @var bool
      */
     private bool $allowRetry = true;
 
     /**
      * The maximum number of attempts for the step.
-     *
-     * @var int|null
      */
     private ?int $maximumAttempts = null;
 
@@ -104,8 +88,9 @@ final class StepDefinition
      *
      * @param  string  $key  The unique key for the step.
      * @param  int  $position  The position of the step in the passage.
-     * @throws InvalidArgumentException If the key is empty.
      * @return void
+     *
+     * @throws InvalidArgumentException If the key is empty.
      */
     public function __construct(
         private readonly string $key,
@@ -179,7 +164,7 @@ final class StepDefinition
     /**
      * Set the prerequisites for the step.
      *
-     * @param  string ...$stepKeys  The keys of the prerequisite steps.
+     * @param  string  ...$stepKeys  The keys of the prerequisite steps.
      * @return $this
      */
     public function dependsOn(string ...$stepKeys): self
@@ -233,8 +218,9 @@ final class StepDefinition
      * Set the due time for the step in minutes.
      *
      * @param  int|null  $minutes  The due time in minutes, or null for no due time.
-     * @throws InvalidArgumentException If the provided minutes is less than 1.
      * @return $this
+     *
+     * @throws InvalidArgumentException If the provided minutes is less than 1.
      */
     public function dueAfterMinutes(?int $minutes): self
     {
@@ -255,8 +241,9 @@ final class StepDefinition
      *
      * @param  bool  $allowRetry  Whether retrying is allowed (true) or not (false).
      * @param  int|null  $maximumAttempts  The maximum number of attempts, or null for unlimited attempts.
-     * @throws InvalidArgumentException If the provided maximum attempts is less than 1.
      * @return $this
+     *
+     * @throws InvalidArgumentException If the provided maximum attempts is less than 1.
      */
     public function retryable(bool $allowRetry = true, ?int $maximumAttempts = null): self
     {
@@ -320,8 +307,6 @@ final class StepDefinition
 
     /**
      * Get the unique key for the step.
-     *
-     * @return string
      */
     public function key(): string
     {
@@ -331,19 +316,15 @@ final class StepDefinition
 
     /**
      * Get the position of the step in the passage.
-     *
-     * @return int
      */
     public function position(): int
     {
         // Return the position of the step in the passage
         return $this->position;
     }
-    
+
     /**
      * Get the label of the step.
-     *
-     * @return string
      */
     public function label(): string
     {
@@ -353,8 +334,6 @@ final class StepDefinition
 
     /**
      * Get the description of the step.
-     *
-     * @return string|null
      */
     public function details(): ?string
     {
@@ -364,8 +343,6 @@ final class StepDefinition
 
     /**
      * Determine if the step is required.
-     *
-     * @return bool
      */
     public function isRequired(): bool
     {
@@ -386,8 +363,6 @@ final class StepDefinition
 
     /**
      * Get the route name for the step.
-     *
-     * @return string|null
      */
     public function routeName(): ?string
     {
@@ -405,11 +380,9 @@ final class StepDefinition
         // Return the route parameters for the step
         return $this->routeParameters;
     }
-    
+
     /**
      * Get the direct URL for the step.
-     *
-     * @return string|null
      */
     public function directUrl(): ?string
     {
@@ -419,8 +392,6 @@ final class StepDefinition
 
     /**
      * Get the due time for the step in minutes.
-     *
-     * @return int|null
      */
     public function dueMinutes(): ?int
     {
@@ -430,8 +401,6 @@ final class StepDefinition
 
     /**
      * Determine if the step allows retrying.
-     *
-     * @return bool
      */
     public function allowsRetry(): bool
     {
@@ -441,8 +410,6 @@ final class StepDefinition
 
     /**
      * Get the maximum number of attempts for the step.
-     *
-     * @return int|null
      */
     public function maxAttempts(): ?int
     {
@@ -450,7 +417,7 @@ final class StepDefinition
         return $this->maximumAttempts;
     }
 
-    /** 
+    /**
      * Get the condition for when the step is considered complete.
      *
      * @return Closure|class-string<StepCondition>|null
@@ -461,7 +428,7 @@ final class StepDefinition
         return $this->completionCondition;
     }
 
-    /** 
+    /**
      * Get the condition for when the step is considered visible.
      *
      * @return Closure|class-string<StepCondition>|null

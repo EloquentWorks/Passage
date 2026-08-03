@@ -49,8 +49,6 @@ final readonly class PassageManager
 
     /**
      * Get the passage registry.
-     *
-     * @return PassageRegistry
      */
     public function registry(): PassageRegistry
     {
@@ -62,7 +60,6 @@ final readonly class PassageManager
      * Get the definition of a passage by its key.
      *
      * @param  string  $key  The key of the passage definition.
-     * @return PassageDefinition
      */
     public function definition(string $key): PassageDefinition
     {
@@ -78,7 +75,7 @@ final readonly class PassageManager
      * @param  array<string, mixed>  $metadata  Additional metadata for the enrollment.
      * @param  bool  $forceNew  Whether to force a new enrollment even if one exists.
      * @param  Model|null  $actor  The actor responsible for the enrollment, if any.
-     * @return PassageEnrollment  The created or existing passage enrollment.
+     * @return PassageEnrollment The created or existing passage enrollment.
      */
     public function enroll(
         Model $subject,
@@ -147,7 +144,7 @@ final readonly class PassageManager
      *
      * @param  Model  $subject  The subject model.
      * @param  string  $passage  The key of the passage.
-     * @return PassageEnrollment|null  The current enrollment or null if none exists.
+     * @return PassageEnrollment|null The current enrollment or null if none exists.
      */
     public function current(Model $subject, string $passage): ?PassageEnrollment
     {
@@ -168,7 +165,7 @@ final readonly class PassageManager
      *
      * @param  Model  $subject  The subject model.
      * @param  string  $passage  The key of the passage.
-     * @return PassageEnrollment|null  The active enrollment or null if none exists.
+     * @return PassageEnrollment|null The active enrollment or null if none exists.
      */
     public function active(Model $subject, string $passage): ?PassageEnrollment
     {
@@ -190,7 +187,7 @@ final readonly class PassageManager
      *
      * @param  Model  $subject  The subject model.
      * @param  string  $passage  The key of the passage.
-     * @return PassageEnrollment  The current or newly created enrollment.
+     * @return PassageEnrollment The current or newly created enrollment.
      */
     public function getOrEnroll(Model $subject, string $passage): PassageEnrollment
     {
@@ -206,7 +203,7 @@ final readonly class PassageManager
      * @param  string  $step  The key of the step to start.
      * @param  array<string, mixed>  $data  Additional data to associate with the step progress.
      * @param  Model|null  $actor  The actor model.
-     * @return PassageStepProgress  The step progress instance.
+     * @return PassageStepProgress The step progress instance.
      */
     public function startStep(
         Model $subject,
@@ -261,7 +258,7 @@ final readonly class PassageManager
      * @param  array<string, mixed>  $data  Additional data to associate with the step progress.
      * @param  Model|null  $actor  The actor model.
      * @param  bool  $force  Whether to force completion of the step.
-     * @return PassageStepProgress  The step progress instance.
+     * @return PassageStepProgress The step progress instance.
      */
     public function completeStep(
         Model $subject,
@@ -300,7 +297,7 @@ final readonly class PassageManager
 
         // Update the enrollment state to indicate that it is in progress and record the last activity time
         $enrollment->forceFill(['last_activity_at' => now()])->save();
-        
+
         // Record the step completion event in the audit log and dispatch the StepCompleted event
         $this->audits->record($enrollment, $force ? 'step.overridden' : 'step.completed', $step, $actor, $data);
         $this->events->dispatch(new StepCompleted($enrollment, $progress, $actor, $force));
@@ -319,7 +316,7 @@ final readonly class PassageManager
      * @param  array<string, mixed>  $data  Additional data to associate with the step progress.
      * @param  Model|null  $actor  The actor model.
      * @param  bool  $force  Whether to force skipping of the step.
-     * @return PassageStepProgress  The step progress instance.
+     * @return PassageStepProgress The step progress instance.
      */
     public function skipStep(
         Model $subject,
@@ -368,7 +365,7 @@ final readonly class PassageManager
      * @param  string  $reason  The reason for the failure.
      * @param  array<string, mixed>  $data  Additional data to associate with the step progress.
      * @param  Model|null  $actor  The actor model.
-     * @return PassageStepProgress  The step progress instance.
+     * @return PassageStepProgress The step progress instance.
      */
     public function failStep(
         Model $subject,
@@ -414,7 +411,7 @@ final readonly class PassageManager
      *
      * @param  Model  $subject  The subject model.
      * @param  string  $passage  The key of the passage.
-     * @return PassageEnrollment  The synchronized passage enrollment.
+     * @return PassageEnrollment The synchronized passage enrollment.
      */
     public function sync(Model $subject, string $passage): PassageEnrollment
     {
@@ -445,6 +442,7 @@ final readonly class PassageManager
             // If the step is not visible and not required, skip it automatically
             if (! $visible && ! $stepDefinition->isRequired()) {
                 $this->skipStep($subject, $passage, $stepDefinition->key(), ['automatic' => true]);
+
                 continue;
             }
 
@@ -472,7 +470,7 @@ final readonly class PassageManager
      *
      * @param  Model  $subject  The subject model.
      * @param  string  $passage  The key of the passage.
-     * @return PassageStepProgress|null  The next step progress instance or null if none exists.
+     * @return PassageStepProgress|null The next step progress instance or null if none exists.
      */
     public function nextStep(Model $subject, string $passage): ?PassageStepProgress
     {
@@ -514,7 +512,7 @@ final readonly class PassageManager
      *
      * @param  Model  $subject  The subject model.
      * @param  string  $passage  The key of the passage.
-     * @return ProgressSnapshot  The progress snapshot instance.
+     * @return ProgressSnapshot The progress snapshot instance.
      */
     public function progress(Model $subject, string $passage): ProgressSnapshot
     {
@@ -558,7 +556,7 @@ final readonly class PassageManager
      * @param  string  $passage  The key of the passage.
      * @param  Model|null  $actor  The actor performing the cancellation.
      * @param  string|null  $reason  The reason for cancellation.
-     * @return PassageEnrollment  The updated passage enrollment instance.
+     * @return PassageEnrollment The updated passage enrollment instance.
      */
     public function cancel(Model $subject, string $passage, ?Model $actor = null, ?string $reason = null): PassageEnrollment
     {
@@ -585,7 +583,7 @@ final readonly class PassageManager
      * @param  string  $passage  The key of the passage.
      * @param  array<string, mixed>  $metadata  Additional metadata for the enrollment.
      * @param  Model|null  $actor  The actor performing the restart.
-     * @return PassageEnrollment  The updated passage enrollment instance.
+     * @return PassageEnrollment The updated passage enrollment instance.
      */
     public function restart(
         Model $subject,
@@ -616,7 +614,7 @@ final readonly class PassageManager
      * Expire a subject's enrollment in a passage.
      *
      * @param  PassageEnrollment  $enrollment  The passage enrollment to expire.
-     * @return PassageEnrollment  The updated passage enrollment instance.
+     * @return PassageEnrollment The updated passage enrollment instance.
      */
     public function expireEnrollment(PassageEnrollment $enrollment): PassageEnrollment
     {
@@ -644,7 +642,7 @@ final readonly class PassageManager
      * Repair a subject's enrollment in a passage by creating any missing step progress records.
      *
      * @param  PassageEnrollment  $enrollment  The passage enrollment to repair.
-     * @return int  The number of created step progress records.
+     * @return int The number of created step progress records.
      */
     public function repairEnrollment(PassageEnrollment $enrollment): int
     {
@@ -679,7 +677,7 @@ final readonly class PassageManager
      *
      * @param  PassageEnrollment  $enrollment  The passage enrollment to associate with the step progress.
      * @param  StepDefinition  $step  The step definition to create progress for.
-     * @return PassageStepProgress  The created step progress instance.
+     * @return PassageStepProgress The created step progress instance.
      */
     private function createStepProgress(PassageEnrollment $enrollment, StepDefinition $step): PassageStepProgress
     {
@@ -706,7 +704,7 @@ final readonly class PassageManager
      *
      * @param  PassageEnrollment  $enrollment  The passage enrollment to retrieve progress for.
      * @param  string  $step  The key of the step to retrieve progress for.
-     * @return PassageStepProgress  The step progress instance.
+     * @return PassageStepProgress The step progress instance.
      */
     private function stepProgress(PassageEnrollment $enrollment, string $step): PassageStepProgress
     {
@@ -732,7 +730,7 @@ final readonly class PassageManager
      * Recalculate the enrollment state based on the current step progress.
      *
      * @param  PassageEnrollment  $enrollment  The passage enrollment to recalculate.
-     * @return PassageEnrollment  The updated passage enrollment instance.
+     * @return PassageEnrollment The updated passage enrollment instance.
      */
     private function recalculate(PassageEnrollment $enrollment): PassageEnrollment
     {
@@ -781,7 +779,8 @@ final readonly class PassageManager
      *
      * @param  PassageEnrollment  $enrollment  The passage enrollment to check prerequisites for.
      * @param  StepDefinition  $step  The step definition to check prerequisites for.
-     * @throws StepBlocked  If the prerequisites are not satisfied.
+     *
+     * @throws StepBlocked If the prerequisites are not satisfied.
      */
     private function assertPrerequisitesSatisfied(PassageEnrollment $enrollment, StepDefinition $step): void
     {
@@ -799,7 +798,7 @@ final readonly class PassageManager
      *
      * @param  PassageEnrollment  $enrollment  The passage enrollment to check prerequisites for.
      * @param  StepDefinition  $step  The step definition to check prerequisites for.
-     * @return bool  True if the prerequisites are satisfied, false otherwise.
+     * @return bool True if the prerequisites are satisfied, false otherwise.
      */
     private function prerequisitesSatisfied(PassageEnrollment $enrollment, StepDefinition $step): bool
     {
@@ -812,7 +811,7 @@ final readonly class PassageManager
      *
      * @param  PassageEnrollment  $enrollment  The passage enrollment to check prerequisites for.
      * @param  StepDefinition  $step  The step definition to check prerequisites for.
-     * @return array<string>  An array of missing prerequisite step keys.
+     * @return array<string> An array of missing prerequisite step keys.
      */
     private function missingPrerequisites(PassageEnrollment $enrollment, StepDefinition $step): array
     {
@@ -843,7 +842,8 @@ final readonly class PassageManager
      *
      * @param  PassageStepProgress  $progress  The step progress to check retry availability for.
      * @param  StepDefinition  $definition  The step definition to check retry availability for.
-     * @throws StepRetryLimitReached  If the retry limit has been reached for the step.
+     *
+     * @throws StepRetryLimitReached If the retry limit has been reached for the step.
      */
     private function assertRetryAvailable(PassageStepProgress $progress, StepDefinition $definition): void
     {

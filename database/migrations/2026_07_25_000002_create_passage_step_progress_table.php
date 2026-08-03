@@ -36,7 +36,7 @@ return new class extends Migration
 
             // Add a boolean column for required, which can store whether the step is required or optional
             $table->boolean('required')->default(true)->index();
-            
+
             // Add a string column for state, which can store the current state of the step (e.g., pending, completed, failed)
             $table->string('state')->index();
 

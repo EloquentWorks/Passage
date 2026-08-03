@@ -30,7 +30,6 @@ final readonly class RedirectToNextPassageStep
      * @param  Request  $request  The incoming request.
      * @param  Closure  $next  The next middleware in the stack.
      * @param  string  $passage  The passage key to check for progress.
-     * @return Response
      */
     public function handle(Request $request, Closure $next, string $passage): Response
     {

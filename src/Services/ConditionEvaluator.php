@@ -28,7 +28,7 @@ final readonly class ConditionEvaluator
      * @param  PassageEnrollment  $enrollment  The passage enrollment.
      * @param  PassageStepProgress  $step  The passage step progress.
      * @param  bool  $default  The default value to return if the condition is null.
-     * @return bool  The result of the condition evaluation.
+     * @return bool The result of the condition evaluation.
      */
     public function evaluate(
         Closure|string|null $condition,

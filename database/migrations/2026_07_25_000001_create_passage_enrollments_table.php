@@ -23,7 +23,7 @@ return new class extends Migration
         Schema::create($tableName, function (Blueprint $table): void {
             // Add an auto-incrementing primary key
             $table->id();
-            
+
             // Add a UUID column for unique identification of each enrollment
             $table->uuid('uuid')->unique();
 

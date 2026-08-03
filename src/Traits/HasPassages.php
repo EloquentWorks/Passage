@@ -29,9 +29,7 @@ trait HasPassages
     /**
      * Start a new passage enrollment for the model.
      *
-     * @param  string  $passage
      * @param  array<string, mixed>  $metadata
-     * @return PassageEnrollment
      */
     public function startPassage(string $passage, array $metadata = []): PassageEnrollment
     {
@@ -41,9 +39,6 @@ trait HasPassages
 
     /**
      * Get the current passage enrollment for the model.
-     *
-     * @param  string  $passage
-     * @return PassageEnrollment|null
      */
     public function passage(string $passage): ?PassageEnrollment
     {
@@ -53,21 +48,15 @@ trait HasPassages
 
     /**
      * Get the active passage enrollment for the model.
-     *
-     * @param  string  $passage
-     * @return PassageEnrollment|null
      */
     public function activePassage(string $passage): ?PassageEnrollment
     {
         // Use the PassageManager to retrieve the active enrollment for the specified passage.
         return app(PassageManager::class)->active($this, $passage);
     }
-    
+
     /**
      * Get the progress snapshot for the specified passage.
-     *
-     * @param  string  $passage
-     * @return ProgressSnapshot
      */
     public function passageProgress(string $passage): ProgressSnapshot
     {
@@ -77,9 +66,6 @@ trait HasPassages
 
     /**
      * Get the next step in the specified passage for the model.
-     *
-     * @param  string  $passage
-     * @return PassageStepProgress|null
      */
     public function nextPassageStep(string $passage): ?PassageStepProgress
     {
@@ -90,10 +76,7 @@ trait HasPassages
     /**
      * Complete the specified step in the passage for the model.
      *
-     * @param  string  $passage
-     * @param  string  $step
      * @param  array<string, mixed>  $data
-     * @return PassageStepProgress
      */
     public function completePassageStep(string $passage, string $step, array $data = []): PassageStepProgress
     {
@@ -104,10 +87,7 @@ trait HasPassages
     /**
      * Skip the specified step in the passage for the model.
      *
-     * @param  string  $passage
-     * @param  string  $step
      * @param  array<string, mixed>  $data
-     * @return PassageStepProgress
      */
     public function skipPassageStep(string $passage, string $step, array $data = []): PassageStepProgress
     {
@@ -118,11 +98,7 @@ trait HasPassages
     /**
      * Fail the specified step in the passage for the model.
      *
-     * @param  string  $passage
-     * @param  string  $step
-     * @param  string  $reason
      * @param  array<string, mixed>  $data
-     * @return PassageStepProgress
      */
     public function failPassageStep(string $passage, string $step, string $reason, array $data = []): PassageStepProgress
     {
@@ -132,9 +108,6 @@ trait HasPassages
 
     /**
      * Check if the model has completed the specified passage.
-     *
-     * @param  string  $passage
-     * @return bool
      */
     public function hasCompletedPassage(string $passage): bool
     {
@@ -145,9 +118,7 @@ trait HasPassages
     /**
      * Restart the specified passage for the model.
      *
-     * @param  string  $passage
      * @param  array<string, mixed>  $metadata
-     * @return PassageEnrollment
      */
     public function restartPassage(string $passage, array $metadata = []): PassageEnrollment
     {

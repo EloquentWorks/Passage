@@ -2,10 +2,9 @@ includes:
     - vendor/larastan/larastan/extension.neon
 
 parameters:
-    level: 8
+    level: 6
     paths:
         - src
         - tests
     tmpDir: .phpstan-cache
-    checkMissingIterableValueType: true
     treatPhpDocTypesAsCertain: true

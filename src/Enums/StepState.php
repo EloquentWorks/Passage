@@ -13,8 +13,6 @@ enum StepState: string
 
     /**
      * Check if the step state is satisfied (completed or skipped).
-     *
-     * @return bool
      */
     public function isSatisfied(): bool
     {
@@ -23,8 +21,6 @@ enum StepState: string
 
     /**
      * Check if the step state is terminal (completed or skipped).
-     *
-     * @return bool
      */
     public function isTerminal(): bool
     {

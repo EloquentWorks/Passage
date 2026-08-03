@@ -44,8 +44,9 @@ final class PassageRegistry
      * Retrieve a registered passage definition by its key.
      *
      * @param  string  $key  The unique key of the passage definition to retrieve.
-     * @throws PassageNotDefined If the passage definition is not registered.
      * @return PassageDefinition The registered passage definition.
+     *
+     * @throws PassageNotDefined If the passage definition is not registered.
      */
     public function get(string $key): PassageDefinition
     {
@@ -80,7 +81,6 @@ final class PassageRegistry
      * Remove a registered passage definition by its key.
      *
      * @param  string  $key  The unique key of the passage definition to remove.
-     * @return void
      */
     public function forget(string $key): void
     {
@@ -90,8 +90,6 @@ final class PassageRegistry
 
     /**
      * Clear all registered passage definitions.
-     *
-     * @return void
      */
     public function flush(): void
     {
@@ -103,7 +101,6 @@ final class PassageRegistry
      * Hydrate the registry with passage definitions from an array.
      *
      * @param  array<string, array>  $definitions  An associative array of passage definitions to hydrate the registry with.
-     * @return void
      */
     public function hydrate(array $definitions): void
     {

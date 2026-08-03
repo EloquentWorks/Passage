@@ -5,6 +5,7 @@ namespace EloquentWorks\Passage\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
@@ -17,7 +18,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  * @property string|null $actor_type
  * @property string|null $actor_id
  * @property array<string, mixed>|null $data
- * @property \Illuminate\Support\Carbon $occurred_at
+ * @property Carbon $occurred_at
  * @property-read PassageEnrollment|null $enrollment
  * @property-read Model $subject
  * @property-read Model|null $actor
@@ -44,8 +45,6 @@ class PassageAudit extends Model
 
     /**
      * Get the table associated with the model.
-     *
-     * @return string
      */
     public function getTable(): string
     {

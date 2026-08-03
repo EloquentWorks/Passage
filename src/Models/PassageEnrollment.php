@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
@@ -19,13 +20,13 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  * @property int $cycle
  * @property EnrollmentState $state
  * @property array<string, mixed>|null $metadata
- * @property \Illuminate\Support\Carbon|null $started_at
- * @property \Illuminate\Support\Carbon|null $completed_at
- * @property \Illuminate\Support\Carbon|null $expired_at
- * @property \Illuminate\Support\Carbon|null $cancelled_at
- * @property \Illuminate\Support\Carbon|null $due_at
- * @property \Illuminate\Support\Carbon|null $last_activity_at
- * @property \Illuminate\Support\Carbon|null $last_reminded_at
+ * @property Carbon|null $started_at
+ * @property Carbon|null $completed_at
+ * @property Carbon|null $expired_at
+ * @property Carbon|null $cancelled_at
+ * @property Carbon|null $due_at
+ * @property Carbon|null $last_activity_at
+ * @property Carbon|null $last_reminded_at
  * @property-read Model $subject
  * @property-read Collection<int, PassageStepProgress> $steps
  * @property-read Collection<int, PassageAudit> $audits
@@ -109,7 +110,6 @@ class PassageEnrollment extends Model
      * Scope a query to only include active enrollments.
      *
      * @param  Builder<PassageEnrollment>  $query
-     * @return void
      */
     public function scopeActive(Builder $query): void
     {
@@ -125,8 +125,6 @@ class PassageEnrollment extends Model
      * Scope a query to only include enrollments for a specific passage.
      *
      * @param  Builder<PassageEnrollment>  $query
-     * @param  string  $passage
-     * @return void
      */
     public function scopeForPassage(Builder $query, string $passage): void
     {
@@ -136,8 +134,6 @@ class PassageEnrollment extends Model
 
     /**
      * Determine if the enrollment is complete.
-     *
-     * @return bool
      */
     public function isComplete(): bool
     {
@@ -147,8 +143,6 @@ class PassageEnrollment extends Model
 
     /**
      * Determine if the enrollment is expired.
-     *
-     * @return bool
      */
     public function isTerminal(): bool
     {

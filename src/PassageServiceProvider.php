@@ -14,7 +14,6 @@ use EloquentWorks\Passage\Http\Middleware\EnsurePassageStepComplete;
 use EloquentWorks\Passage\Http\Middleware\RedirectToNextPassageStep;
 use EloquentWorks\Passage\Services\AuditLogger;
 use EloquentWorks\Passage\Services\ConditionEvaluator;
-use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 
@@ -22,8 +21,6 @@ final class PassageServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
-     *
-     * @return void
      */
     public function register(): void
     {
@@ -55,7 +52,6 @@ final class PassageServiceProvider extends ServiceProvider
      * Bootstrap any application services.
      *
      * @param  Router  $router  The router instance for registering middleware.
-     * @return void
      */
     public function boot(Router $router): void
     {

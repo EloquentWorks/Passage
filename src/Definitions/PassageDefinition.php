@@ -9,43 +9,31 @@ final class PassageDefinition
 {
     /**
      * The unique key for the passage.
-     *
-     * @var string
      */
     private string $name;
 
     /**
      * The version of the passage.
-     *
-     * @var int
      */
     private int $version = 1;
 
     /**
      * A brief description of the passage.
-     *
-     * @var string|null
      */
     private ?string $description = null;
 
     /**
      * The category of the passage.
-     *
-     * @var string|null
      */
     private ?string $category = null;
 
     /**
      * Whether the passage is repeatable.
-     *
-     * @var bool
      */
     private bool $repeatable = false;
 
     /**
      * The number of minutes after which the passage is due.
-     *
-     * @var int|null
      */
     private ?int $dueAfterMinutes = null;
 
@@ -74,8 +62,9 @@ final class PassageDefinition
      * Create a new passage definition.
      *
      * @param  string  $key  The unique key for the passage.
-     * @throws InvalidArgumentException If the key is empty.
      * @return void
+     *
+     * @throws InvalidArgumentException If the key is empty.
      */
     public function __construct(private readonly string $key)
     {
@@ -92,7 +81,6 @@ final class PassageDefinition
      * Set the name of the passage.
      *
      * @param  string  $name  The name of the passage.
-     * @return self
      */
     public function name(string $name): self
     {
@@ -107,7 +95,6 @@ final class PassageDefinition
      * Set the description of the passage.
      *
      * @param  string|null  $description  The description of the passage.
-     * @return self
      */
     public function description(?string $description): self
     {
@@ -122,7 +109,6 @@ final class PassageDefinition
      * Set the category of the passage.
      *
      * @param  string|null  $category  The category of the passage.
-     * @return self
      */
     public function category(?string $category): self
     {
@@ -137,8 +123,8 @@ final class PassageDefinition
      * Set the version of the passage.
      *
      * @param  int  $version  The version of the passage.
+     *
      * @throws InvalidArgumentException If the version is less than one.
-     * @return self
      */
     public function version(int $version): self
     {
@@ -158,7 +144,6 @@ final class PassageDefinition
      * Set whether the passage is repeatable.
      *
      * @param  bool  $repeatable  Whether the passage is repeatable.
-     * @return self
      */
     public function repeatable(bool $repeatable = true): self
     {
@@ -173,8 +158,8 @@ final class PassageDefinition
      * Set the number of minutes after which the passage is due.
      *
      * @param  int|null  $minutes  The number of minutes after which the passage is due.
+     *
      * @throws InvalidArgumentException If the number of minutes is less than one.
-     * @return self
      */
     public function dueAfterMinutes(?int $minutes): self
     {
@@ -182,7 +167,7 @@ final class PassageDefinition
         if ($minutes !== null && $minutes < 1) {
             throw new InvalidArgumentException('Passage due time must be at least one minute.');
         }
-        
+
         // Set the number of minutes after which the passage is due
         $this->dueAfterMinutes = $minutes;
 
@@ -194,7 +179,6 @@ final class PassageDefinition
      * Set the tags of the passage.
      *
      * @param  string  ...$tags  The tags to associate with the passage.
-     * @return self
      */
     public function tags(string ...$tags): self
     {
@@ -209,7 +193,6 @@ final class PassageDefinition
      * Set the metadata of the passage.
      *
      * @param  array<string, mixed>  $metadata  The metadata to associate with the passage.
-     * @return self
      */
     public function metadata(array $metadata): self
     {
@@ -225,8 +208,8 @@ final class PassageDefinition
      *
      * @param  string  $key  The unique key for the step.
      * @param  Closure|null  $configure  An optional closure to configure the step.
+     *
      * @throws InvalidArgumentException If the step key is already registered.
-     * @return self
      */
     public function step(string $key, ?Closure $configure = null): self
     {
@@ -250,8 +233,8 @@ final class PassageDefinition
      * Add a step definition to the passage.
      *
      * @param  StepDefinition  $step  The step definition to add.
+     *
      * @throws InvalidArgumentException If the step key is already registered.
-     * @return self
      */
     public function addStep(StepDefinition $step): self
     {
@@ -262,15 +245,13 @@ final class PassageDefinition
 
         // Add the step definition to the passage
         $this->steps[$step->key()] = $step;
-        
+
         // Return the current instance for method chaining
         return $this;
     }
 
     /**
      * Get the unique key of the passage.
-     *
-     * @return string
      */
     public function key(): string
     {
@@ -280,8 +261,6 @@ final class PassageDefinition
 
     /**
      * Get the label of the passage.
-     *
-     * @return string
      */
     public function label(): string
     {
@@ -291,8 +270,6 @@ final class PassageDefinition
 
     /**
      * Get the details of the passage.
-     *
-     * @return string|null
      */
     public function details(): ?string
     {
@@ -302,8 +279,6 @@ final class PassageDefinition
 
     /**
      * Get the group of the passage.
-     *
-     * @return string|null
      */
     public function group(): ?string
     {
@@ -313,19 +288,15 @@ final class PassageDefinition
 
     /**
      * Get the revision number of the passage.
-     *
-     * @return int
      */
     public function revision(): int
     {
         // Return the revision number of the passage
         return $this->version;
     }
-    
+
     /**
      * Determine if the passage is repeatable.
-     *
-     * @return bool
      */
     public function isRepeatable(): bool
     {
@@ -335,8 +306,6 @@ final class PassageDefinition
 
     /**
      * Get the number of minutes after which the passage is due.
-     *
-     * @return int|null
      */
     public function dueMinutes(): ?int
     {
@@ -381,8 +350,8 @@ final class PassageDefinition
      * Get a specific step definition by its key.
      *
      * @param  string  $key  The unique key of the step.
+     *
      * @throws InvalidArgumentException If the step key is not defined.
-     * @return StepDefinition
      */
     public function stepDefinition(string $key): StepDefinition
     {

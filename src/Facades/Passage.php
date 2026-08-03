@@ -4,6 +4,7 @@ namespace EloquentWorks\Passage\Facades;
 
 use EloquentWorks\Passage\Definitions\PassageDefinition;
 use EloquentWorks\Passage\Definitions\PassageRegistry;
+use EloquentWorks\Passage\Exceptions\PassageDefinitionNotFoundException;
 use EloquentWorks\Passage\PassageManager;
 use Illuminate\Support\Facades\Facade;
 
@@ -27,13 +28,13 @@ final class Passage extends Facade
      * Get the passage definition for the given key.
      *
      * @param  string  $key  The key of the passage definition to retrieve.
-     * @throws \EloquentWorks\Passage\Exceptions\PassageDefinitionNotFoundException
-     * @return PassageDefinition
+     *
+     * @throws PassageDefinitionNotFoundException
      */
     public static function define(string $key): PassageDefinition
     {
         /** @var PassageManager $manager */
-        $manager = static::getFacadeRoot();
+        $manager = self::getFacadeRoot();
 
         // If the definition is not found, throw an exception
         return $manager->registry()->define($key);

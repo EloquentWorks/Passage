@@ -21,12 +21,6 @@ final readonly class EnsurePassageStepComplete
 
     /**
      * Handle an incoming request.
-     *
-     * @param  Request  $request
-     * @param  Closure  $next
-     * @param  string  $passage
-     * @param  string  $step
-     * @return Response
      */
     public function handle(Request $request, Closure $next, string $passage, string $step): Response
     {

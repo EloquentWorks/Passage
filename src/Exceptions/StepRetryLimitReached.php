@@ -8,7 +8,6 @@ final class StepRetryLimitReached extends PassageException
      * Create a new StepRetryLimitReached exception instance.
      *
      * @param  string  $step  The step that has reached its retry limit.
-     * @return self
      */
     public static function for(string $step): self
     {

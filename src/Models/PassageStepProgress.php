@@ -6,6 +6,7 @@ use EloquentWorks\Passage\Enums\StepState;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
@@ -17,11 +18,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $attempts
  * @property string|null $failure_reason
  * @property array<string, mixed>|null $data
- * @property \Illuminate\Support\Carbon|null $started_at
- * @property \Illuminate\Support\Carbon|null $completed_at
- * @property \Illuminate\Support\Carbon|null $skipped_at
- * @property \Illuminate\Support\Carbon|null $failed_at
- * @property \Illuminate\Support\Carbon|null $due_at
+ * @property Carbon|null $started_at
+ * @property Carbon|null $completed_at
+ * @property Carbon|null $skipped_at
+ * @property Carbon|null $failed_at
+ * @property Carbon|null $due_at
  * @property-read PassageEnrollment $enrollment
  */
 class PassageStepProgress extends Model
@@ -76,7 +77,6 @@ class PassageStepProgress extends Model
      * Scope a query to only include satisfied step progress.
      *
      * @param  Builder<PassageStepProgress>  $query
-     * @return void
      */
     public function scopeSatisfied(Builder $query): void
     {
@@ -86,8 +86,6 @@ class PassageStepProgress extends Model
 
     /**
      * Determine if the step progress is satisfied.
-     *
-     * @return bool
      */
     public function isSatisfied(): bool
     {

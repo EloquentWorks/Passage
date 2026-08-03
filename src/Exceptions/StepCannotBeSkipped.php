@@ -8,7 +8,6 @@ final class StepCannotBeSkipped extends PassageException
      * Create a new StepCannotBeSkipped exception instance.
      *
      * @param  string  $step  The step that cannot be skipped.
-     * @return self
      */
     public static function required(string $step): self
     {

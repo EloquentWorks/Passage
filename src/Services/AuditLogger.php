@@ -16,7 +16,7 @@ final class AuditLogger
      * @param  string|null  $step  The step key associated with the event, if any.
      * @param  Model|null  $actor  The actor responsible for the event, if any.
      * @param  array  $data  Additional data associated with the event.
-     * @return PassageAudit  The created audit record.
+     * @return PassageAudit The created audit record.
      */
     public function record(
         PassageEnrollment $enrollment,

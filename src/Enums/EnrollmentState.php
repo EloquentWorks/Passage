@@ -13,8 +13,6 @@ enum EnrollmentState: string
 
     /**
      * Check if the enrollment state is terminal (completed, expired, or cancelled).
-     *
-     * @return bool
      */
     public function isTerminal(): bool
     {

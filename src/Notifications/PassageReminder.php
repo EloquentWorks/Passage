@@ -25,7 +25,6 @@ final class PassageReminder extends Notification implements ShouldQueue
     /**
      * Get the notification's delivery channels.
      *
-     * @param  object  $notifiable
      * @return list<string>
      */
     public function via(object $notifiable): array
@@ -39,9 +38,6 @@ final class PassageReminder extends Notification implements ShouldQueue
 
     /**
      * Get the mail representation of the notification.
-     *
-     * @param  object  $notifiable
-     * @return MailMessage
      */
     public function toMail(object $notifiable): MailMessage
     {
@@ -78,7 +74,6 @@ final class PassageReminder extends Notification implements ShouldQueue
     /**
      * Get the array representation of the notification.
      *
-     * @param  object  $notifiable
      * @return array<string, mixed>
      */
     public function toArray(object $notifiable): array
