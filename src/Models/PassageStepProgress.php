@@ -30,7 +30,7 @@ class PassageStepProgress extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var list<string>
      */
     protected $fillable = [
         'enrollment_id',
@@ -49,9 +49,7 @@ class PassageStepProgress extends Model
     ];
 
     /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array<string, string>
+     * Get the table name associated with the model.
      */
     public function getTable(): string
     {
@@ -66,7 +64,7 @@ class PassageStepProgress extends Model
      */
     public function enrollment(): BelongsTo
     {
-        // Get the enrollment model class from the configuration, defaulting to PassageEnrollment.
+        /** @var class-string<PassageEnrollment> $model */
         $model = (string) config('passage.models.enrollment', PassageEnrollment::class);
 
         // Define a belongsTo relationship between the step progress and the enrollment model using the enrollment_id foreign key.

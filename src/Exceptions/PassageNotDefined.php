@@ -8,7 +8,6 @@ final class PassageNotDefined extends PassageException
      * Create a new PassageNotDefined exception instance.
      *
      * @param  string  $key  The key of the passage that has not been defined.
-     * @return void
      */
     public static function for(string $key): self
     {

@@ -19,7 +19,7 @@ trait HasPassages
      */
     public function passageEnrollments(): MorphMany
     {
-        // Get the enrollment model class from the configuration, defaulting to PassageEnrollment if not set.
+        /** @var class-string<PassageEnrollment> $model */
         $model = (string) config('passage.models.enrollment', PassageEnrollment::class);
 
         // Return a morphMany relationship for the enrollments, using 'subject' as the morph name.

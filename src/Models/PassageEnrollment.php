@@ -27,7 +27,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $due_at
  * @property Carbon|null $last_activity_at
  * @property Carbon|null $last_reminded_at
- * @property-read Model $subject
+ * @property-read Model|null $subject
  * @property-read Collection<int, PassageStepProgress> $steps
  * @property-read Collection<int, PassageAudit> $audits
  */
@@ -36,7 +36,7 @@ class PassageEnrollment extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var list<string>
      */
     protected $fillable = [
         'uuid',
@@ -57,9 +57,7 @@ class PassageEnrollment extends Model
     ];
 
     /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array<string, string>
+     * Get the table name associated with the model.
      */
     public function getTable(): string
     {
@@ -85,7 +83,7 @@ class PassageEnrollment extends Model
      */
     public function steps(): HasMany
     {
-        // Get the model class for steps from the configuration, defaulting to PassageStepProgress if not specified
+        /** @var class-string<PassageStepProgress> $model */
         $model = (string) config('passage.models.step', PassageStepProgress::class);
 
         // Return a HasMany relationship for the steps associated with this enrollment, using the enrollment_id foreign key
@@ -99,7 +97,7 @@ class PassageEnrollment extends Model
      */
     public function audits(): HasMany
     {
-        // Get the model class for audits from the configuration, defaulting to PassageAudit if not specified
+        /** @var class-string<PassageAudit> $model */
         $model = (string) config('passage.models.audit', PassageAudit::class);
 
         // Return a HasMany relationship for the audits associated with this enrollment, using the enrollment_id foreign key

@@ -28,7 +28,7 @@ class PassageAudit extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var list<string>
      */
     protected $fillable = [
         'enrollment_id',
@@ -59,7 +59,7 @@ class PassageAudit extends Model
      */
     public function enrollment(): BelongsTo
     {
-        // The enrollment model is configurable via the 'passage.models.enrollment' configuration option.
+        /** @var class-string<PassageEnrollment> $model */
         $model = (string) config('passage.models.enrollment', PassageEnrollment::class);
 
         // The enrollment is a standard belongs-to relationship, linking the audit to the specific enrollment it pertains to.

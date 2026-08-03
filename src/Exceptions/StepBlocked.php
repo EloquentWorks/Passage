@@ -8,7 +8,7 @@ final class StepBlocked extends PassageException
      * Create a new StepBlocked exception instance.
      *
      * @param  string  $step  The step that is blocked.
-     * @param  array  $prerequisites  The prerequisites that are blocking the step.
+     * @param  list<string>  $prerequisites  The prerequisites that are blocking the step.
      */
     public static function byPrerequisites(string $step, array $prerequisites): self
     {

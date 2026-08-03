@@ -100,7 +100,8 @@ final class PassageRegistry
     /**
      * Hydrate the registry with passage definitions from an array.
      *
-     * @param  array<string, array>  $definitions  An associative array of passage definitions to hydrate the registry with.
+     * @param  array<string, array<string, mixed>>  $definitions  An associative array of passage definitions to hydrate
+     *                                                            the registry with.
      */
     public function hydrate(array $definitions): void
     {
