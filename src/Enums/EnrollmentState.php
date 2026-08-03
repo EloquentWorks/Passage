@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace EloquentWorks\Passage\Enums;
 
 enum EnrollmentState: string
@@ -13,6 +11,11 @@ enum EnrollmentState: string
     case Expired = 'expired';
     case Cancelled = 'cancelled';
 
+    /**
+     * Check if the enrollment state is terminal (completed, expired, or cancelled).
+     *
+     * @return bool
+     */
     public function isTerminal(): bool
     {
         return in_array($this, [self::Completed, self::Expired, self::Cancelled], true);

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace EloquentWorks\Passage\Notifications;
 
 use EloquentWorks\Passage\Definitions\PassageRegistry;
@@ -16,18 +14,38 @@ final class PassageReminder extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    /**
+     * Create a new notification instance.
+     *
+     * @param  PassageEnrollment  $enrollment  The enrollment for which the reminder is being sent.
+     * @return void
+     */
     public function __construct(public readonly PassageEnrollment $enrollment) {}
 
-    /** @return list<string> */
+    /**
+     * Get the notification's delivery channels.
+     *
+     * @param  object  $notifiable
+     * @return list<string>
+     */
     public function via(object $notifiable): array
     {
+        // Get the channels from the configuration, defaulting to ['mail'] if not set
         $channels = config('passage.reminders.channels', ['mail']);
 
+        // Filter the channels to ensure they are strings and return them as a list
         return is_array($channels) ? array_values(array_filter($channels, 'is_string')) : ['mail'];
     }
 
+    /**
+     * Get the mail representation of the notification.
+     *
+     * @param  object  $notifiable
+     * @return MailMessage
+     */
     public function toMail(object $notifiable): MailMessage
     {
+        // Retrieve the PassageManager and PassageRegistry instances from the application container
         $manager = app(PassageManager::class);
         $registry = app(PassageRegistry::class);
         $subject = $this->enrollment->subject;
@@ -35,14 +53,17 @@ final class PassageReminder extends Notification implements ShouldQueue
         $definition = $registry->get($this->enrollment->passage_key);
         $step = $next !== null ? $definition->stepDefinition($next->step_key) : null;
 
+        // Build the mail message with subject, greeting, and lines
         $message = (new MailMessage)
             ->subject("Continue {$definition->label()}")
             ->greeting('Your next step is ready')
             ->line("You still have progress remaining in {$definition->label()}.");
 
+        // If there is a next step, add its label and a continue action
         if ($step !== null) {
             $message->line("Next: {$step->label()}");
 
+            // Add a continue action based on the step's route name or direct URL
             if ($step->routeName() !== null) {
                 $message->action('Continue', route($step->routeName(), $step->routeParameters()));
             } elseif ($step->directUrl() !== null) {
@@ -50,12 +71,19 @@ final class PassageReminder extends Notification implements ShouldQueue
             }
         }
 
+        // Add a line indicating when the passage is due, if applicable
         return $message;
     }
 
-    /** @return array<string, int|string|null> */
+    /**
+     * Get the array representation of the notification.
+     *
+     * @param  object  $notifiable
+     * @return array<string, mixed>
+     */
     public function toArray(object $notifiable): array
     {
+        // Convert the PassageReminder notification to an associative array representation.
         return [
             'enrollment_id' => $this->enrollment->getKey(),
             'passage' => $this->enrollment->passage_key,

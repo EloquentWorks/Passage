@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace EloquentWorks\Passage\Facades;
 
 use EloquentWorks\Passage\Definitions\PassageDefinition;
@@ -25,16 +23,30 @@ use Illuminate\Support\Facades\Facade;
  */
 final class Passage extends Facade
 {
+    /**
+     * Get the passage definition for the given key.
+     *
+     * @param  string  $key  The key of the passage definition to retrieve.
+     * @throws \EloquentWorks\Passage\Exceptions\PassageDefinitionNotFoundException
+     * @return PassageDefinition
+     */
     public static function define(string $key): PassageDefinition
     {
         /** @var PassageManager $manager */
         $manager = static::getFacadeRoot();
 
+        // If the definition is not found, throw an exception
         return $manager->registry()->define($key);
     }
 
+    /**
+     * Get the underlying PassageManager instance.
+     *
+     * @return PassageManager
+     */
     protected static function getFacadeAccessor(): string
     {
+        // Return the class name of the PassageManager to resolve it from the service container
         return PassageManager::class;
     }
 }

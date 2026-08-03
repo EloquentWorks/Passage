@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace EloquentWorks\Passage\Models;
 
 use EloquentWorks\Passage\Enums\StepState;
@@ -28,7 +26,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class PassageStepProgress extends Model
 {
-    /** @var list<string> */
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'enrollment_id',
         'step_key',
@@ -45,33 +47,62 @@ class PassageStepProgress extends Model
         'due_at',
     ];
 
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array<string, string>
+     */
     public function getTable(): string
     {
+        // Get the table name for the step progress model from the configuration, defaulting to 'passage_step_progress'.
         return (string) config('passage.tables.steps', 'passage_step_progress');
     }
 
-    /** @return BelongsTo<PassageEnrollment, $this> */
+    /**
+     * Get the enrollment that owns the step progress.
+     *
+     * @return BelongsTo<PassageEnrollment, $this>
+     */
     public function enrollment(): BelongsTo
     {
+        // Get the enrollment model class from the configuration, defaulting to PassageEnrollment.
         $model = (string) config('passage.models.enrollment', PassageEnrollment::class);
 
+        // Define a belongsTo relationship between the step progress and the enrollment model using the enrollment_id foreign key.
         return $this->belongsTo($model, 'enrollment_id');
     }
 
-    /** @param Builder<PassageStepProgress> $query */
+    /**
+     * Scope a query to only include satisfied step progress.
+     *
+     * @param  Builder<PassageStepProgress>  $query
+     * @return void
+     */
     public function scopeSatisfied(Builder $query): void
     {
+        // Filter the query to only include step progress that is satisfied (completed or skipped).
         $query->whereIn('state', [StepState::Completed->value, StepState::Skipped->value]);
     }
 
+    /**
+     * Determine if the step progress is satisfied.
+     *
+     * @return bool
+     */
     public function isSatisfied(): bool
     {
+        // Check if the current state of the step progress is satisfied (completed or skipped).
         return $this->state->isSatisfied();
     }
 
-    /** @return array<string, string> */
+    /**
+     * Get the casts for the model's attributes.
+     *
+     * @return array<string, string>
+     */
     protected function casts(): array
     {
+        // Define the casts for the model's attributes to ensure proper data types.
         return [
             'position' => 'integer',
             'required' => 'boolean',

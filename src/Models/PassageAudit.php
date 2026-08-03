@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace EloquentWorks\Passage\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -26,7 +24,11 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  */
 class PassageAudit extends Model
 {
-    /** @var list<string> */
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'enrollment_id',
         'passage_key',
@@ -40,34 +42,62 @@ class PassageAudit extends Model
         'occurred_at',
     ];
 
+    /**
+     * Get the table associated with the model.
+     *
+     * @return string
+     */
     public function getTable(): string
     {
+        // The table name is configurable via the 'passage.tables.audits' configuration option.
         return (string) config('passage.tables.audits', 'passage_audits');
     }
 
-    /** @return BelongsTo<PassageEnrollment, $this> */
+    /**
+     * Get the enrollment associated with the audit.
+     *
+     * @return BelongsTo<PassageEnrollment, $this>
+     */
     public function enrollment(): BelongsTo
     {
+        // The enrollment model is configurable via the 'passage.models.enrollment' configuration option.
         $model = (string) config('passage.models.enrollment', PassageEnrollment::class);
 
+        // The enrollment is a standard belongs-to relationship, linking the audit to the specific enrollment it pertains to.
         return $this->belongsTo($model, 'enrollment_id');
     }
 
-    /** @return MorphTo<Model, $this> */
+    /**
+     * Get the subject associated with the audit.
+     *
+     * @return MorphTo<Model, $this>
+     */
     public function subject(): MorphTo
     {
+        // The subject is a polymorphic relationship, allowing for different types of models to be
         return $this->morphTo();
     }
 
-    /** @return MorphTo<Model, $this> */
+    /**
+     * Get the actor associated with the audit.
+     *
+     * @return MorphTo<Model, $this>
+     */
     public function actor(): MorphTo
     {
+        // The actor is a polymorphic relationship, allowing for different types of models to be
+        // associated as the actor of the audit event.
         return $this->morphTo();
     }
 
-    /** @return array<string, string> */
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
     protected function casts(): array
     {
+        // Cast the 'data' attribute to an array and 'occurred_at' to a datetime object for easier manipulation.
         return [
             'data' => 'array',
             'occurred_at' => 'datetime',
