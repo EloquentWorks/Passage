@@ -1,17 +1,18 @@
 <?php
 
-declare(strict_types=1);
-
 namespace EloquentWorks\Passage\Tests;
 
 use EloquentWorks\Passage\Definitions\PassageRegistry;
 use EloquentWorks\Passage\PassageServiceProvider;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Schema;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 abstract class TestCase extends Orchestra
 {
+    use RefreshDatabase;
+
     protected function getPackageProviders($app): array
     {
         return [PassageServiceProvider::class];
@@ -37,6 +38,8 @@ abstract class TestCase extends Orchestra
             $table->boolean('email_verified')->default(false);
             $table->timestamps();
         });
+
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
     }
 
     protected function tearDown(): void
