@@ -831,8 +831,21 @@ final readonly class PassageManager
             static function (string $key) use ($states): bool {
                 $state = $states->get($key);
 
-                // If the state is not a string or the step state is not satisfied, consider it a missing prerequisite
-                return ! is_string($state) || ! StepState::from($state)->isSatisfied();
+                // If the state is an instance of StepState, check if it is not satisfied
+                if ($state instanceof StepState) {
+                    return ! $state->isSatisfied();
+                }
+
+                // If the state is not a string, consider it as missing
+                if (! is_string($state)) {
+                    return true;
+                }
+
+                // If the state is a string, try to resolve it to a StepState and check if it is not satisfied
+                $resolved = StepState::tryFrom($state);
+
+                // If the resolved state is null or not satisfied, consider it as missing
+                return $resolved === null || ! $resolved->isSatisfied();
             },
         ));
     }
